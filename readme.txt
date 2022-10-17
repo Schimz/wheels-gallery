@@ -1,4 +1,3 @@
-
 I - Create directories structure (content can be hard copied, synced, hard linked)
 
 	/
@@ -18,5 +17,6 @@ I - Create directories structure (content can be hard copied, synced, hard linke
 					  └─ png files
 					 
 II - if needed, edit vars.php
+
 
 III - You can quickly navigate through titles with keystrokes.
