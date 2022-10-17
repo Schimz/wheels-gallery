@@ -1,7 +1,7 @@
 <?php
-$databases_dir = "databases";
-$videos_dir = "videos";
-$wheels_dir = "wheels";
+$_DATABASES_DIR = "databases";
+$_VIDEOS_DIR = "videos";
+$_WHEELS_DIR = "wheels";
 
-$str100_titles="titles";
+$_STR100_TITLES="titles";
 ?>

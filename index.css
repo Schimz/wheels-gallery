@@ -1,0 +1,70 @@
+body {padding:0;margin:0;background:#777;font-family:Arial;}
+
+/* system name shadowing */
+.shadowed {
+    /*filter: url(#drop-shadow);*/
+    filter: drop-shadow(4px 4px 4px rgba(0,0,0,.5));
+}
+
+/* system, # of games */
+.count {
+
+	bottom:10%;
+left:-.05vw;
+font-size:32px;
+	display:block;
+width:100%;
+	position:absolute;
+/*text-align: center;*/
+}
+
+
+.count2 {
+	display:block;
+	width:100%;
+	color:#fff;	
+	text-align: center;
+	margin:15px 0 15px 0;
+	font-size:32px;
+	font-weight:900;
+	text-align: center;
+	position:relative;
+	text-shadow:-2px -2px 1px rgba(0,0,0,1),-2px 2px 1px rgba(0,0,0,1),2px -2px 1px rgba(0,0,0,1),2px 2px 1px rgba(0,0,0,1),-2px 0 1px rgba(0,0,0,1),0 -2px 1px rgba(0,0,0,1),2px 0 1px rgba(0,0,0,1),0 2px 1px rgba(0,0,0,1);
+}
+/* main container */
+#galley {
+	display: grid;
+	position:relative;
+	grid-gap:0;
+}
+
+
+/* game container */
+div.galley_c {	
+	background: linear-gradient(0deg, rgba(105,105,105,1) 0%, rgba(128,128,128,1) 5%, rgba(196,196,196,1) 95%, rgba(220,220,220,1) 100%);
+	border-top:1px solid #fff;
+	border-bottom:3px solid #333;
+	border-radius:12px;
+	box-shadow:0 0 3px 0 rgba(0,0,0,0.6), 4px 4px 8px 0 rgba(0,0,0,0.3);
+	display:grid;
+	padding:10px;
+	color:#fff;	
+	font-size:24px;
+	font-weight:900;
+	text-align: center;
+	position:relative;
+	text-shadow:-2px -2px 1px rgba(0,0,0,1),-2px 2px 1px rgba(0,0,0,1),2px -2px 1px rgba(0,0,0,1),2px 2px 1px rgba(0,0,0,1),-2px 0 1px rgba(0,0,0,1),0 -2px 1px rgba(0,0,0,1),2px 0 1px rgba(0,0,0,1),0 2px 1px rgba(0,0,0,1);
+	place-content:center;
+	margin:0 4px 5px 4px;
+}
+
+@media screen and (max-width: 800px) {
+	div.galley_c {	
+		margin:0 2px 2.5px 2px;
+	}
+}
+/* game wheel image */
+div.galley_c img {
+	width: 100%;
+}
+
