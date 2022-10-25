@@ -18,7 +18,6 @@ I - Create directories structure (content can be hard copied, synced, hard linke
 					 
 II - if needed, edit vars.php.
 
-
 III - You can quickly navigate through titles with keystrokes.
 
 IV - Additional scripts
