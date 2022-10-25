@@ -20,3 +20,8 @@ II - if needed, edit vars.php.
 
 
 III - You can quickly navigate through titles with keystrokes.
+
+IV - Additional scripts
+
+     _games.php - Text based gallery
+	 _games-raw.php - All games sorted
