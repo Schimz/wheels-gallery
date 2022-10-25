@@ -14,7 +14,7 @@ I - Create directories structure (content can be hard copied, synced, hard linke
 			 ├─ /Main Menu
 			 │           └─ png files
 			 └─ /system
-					  └─ png files
+                      └─ png files
 					 
 II - if needed, edit vars.php.
 
