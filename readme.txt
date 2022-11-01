@@ -22,5 +22,5 @@ III - You can quickly navigate through titles with keystrokes.
 
 IV - Additional scripts
 
-     _games.php - Text based gallery
-     _games-raw.php - All games sorted
+     _games-text.php - Text based gallery
+     _games-text-raw.php - All games sorted

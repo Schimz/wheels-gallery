@@ -13,7 +13,7 @@ include("vars.php");
 <script src="scrollto.js"></script>
 <style>
 .red {background-color:red;color:white;}
-body {background-color:#bbb;font-size:26px;}
+body {background-color:#bbb;font-family:Arial;}
 a {font-size:16px;font-weight:300;}
 table {background-color:black;}
 span{display:inline-block;margin-left:10px;padding:2px 7px 2px 7px;font-size:20px;font-weight:700;}
@@ -42,7 +42,7 @@ foreach($systems_list as $sys) {
 $strSys .= '<a href="#'.$sys[name].'"><img class="lnkSys" src="'.$_WHEELS_DIR.'/Main Menu/'.$sys[name].'.png"/></a>&nbsp;';
 }
 
-	$game_list_sorted = array();
+
 foreach($systems_list as $sys) {
 	$xml = $_DATABASES_DIR.'/'.$sys[name].'/'.$sys[name].'.xml';
 	
@@ -51,47 +51,40 @@ foreach($systems_list as $sys) {
 	$game_list = array();
 
 	foreach($games as $game) {
-	$attr=$game->attributes();
+		$attr=$game->attributes();
 		if (!$attr->enabled) {
 		$game_list[] = array ('name' => "$game->description", 'code' => $game[0]['name'], 'date' => "$game->year", 'genre' => "$game->genre", 'firm' => "$game->manufacturer");
 		}
-
 	}
-	unset ($game_list[0]);	
-
+	unset ($game_list[0]);
 	$replace = '';		
 	$prev_game = '';
 	$prev_letter = '';
-	$count_img = $wheels_dir.'/Main Menu/'.$sys[name].'.png';
-	//echo "\n".'<br><a id="'.$sys[name].'"><table><tr><td><img src="'.$count_img.'"/></td><td>'.$strSys.'</td></tr></table>';	
-	$count2 = 0;
+	$count_img = $_WHEELS_DIR.'/Main Menu/'.$sys[name].'.png';
+	echo "\n".'<br><a id="'.$sys[name].'"><table><tr><td><img src="'.$count_img.'"/></td><td>'.$strSys.'</td></tr></table>';	
+
 	foreach($game_list as $game) {
 		
 		$name = preg_replace("/\s\([^)]+\)/", "", $game['name']);
 
 		if ($name == $prev_game) {
-			$count2++;
+
 			//echo '<span class="red">'.$name.'</span><br>';
 					
 		} else {
-			$game_list_sorted[] = $name.' ('.$sys[name].')';
+			
+			echo '<span>'.$name.'</span> ('.$game['genre'].')<br>';
+	
 		}
 			if ($name != $prev_game) {
 		$prev_game = $name;
 
 	}
 	}
-	if ($count2 !='0') {
-	//echo '<br><span class="red">'.$count2.'</span><br><br>';
-	}
+	echo '</table>';
+
 
 }
-sort ($game_list_sorted,SORT_NATURAL|SORT_FLAG_CASE);
-for ($i=0; $i<=sizeof($game_list_sorted); $i++) {
-	echo $game_list_sorted[$i].'<br>';
-}
-
-
 ?>
 
 
