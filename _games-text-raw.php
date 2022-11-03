@@ -7,22 +7,15 @@ include("vars.php");
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Wheel Galley - Games</title>
-<link href="style2.css" rel="stylesheet" type="text/css" />
+<title>Wheel Galley - Games Raw</title>
+<link href="_games-text-raw.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
 <script src="jq.js"></script>
 <script src="scrollto.js"></script>
-<style>
-.red {background-color:red;color:white;}
-body {background-color:#bbb;font-family:Arial;}
-a {font-size:16px;font-weight:300;}
-table {background-color:black;}
-span{display:inline-block;margin-left:10px;padding:2px 7px 2px 7px;font-size:20px;font-weight:700;}
-.lnkSys {width:120px;}
-.left {text-align:right;}
-</style>
 </head>
 
 <body>
+<div id="mainContent">	
 <?php
 $total =0;
 $systems = simplexml_load_file($_DATABASES_DIR.'/Main Menu/Main Menu.xml');
@@ -62,8 +55,7 @@ foreach($systems_list as $sys) {
 
 	$replace = '';		
 	$prev_game = '';
-	$prev_letter = '';
-	$count_img = $wheels_dir.'/Main Menu/'.$sys['name'].'.png';
+	
 	$count2 = 0;
 	foreach($game_list as $game) {		
 		$name = preg_replace("/\s\([^)]+\)/", "", $game['name']);
@@ -71,7 +63,9 @@ foreach($systems_list as $sys) {
 		if ($name == $prev_game) {
 			$count2++;
 		} else {
-			$game_list_sorted[] = $name.' ('.$sys['name'].')';
+			$game_list_sorted[] = array ('name'=> $name, 'sys'=>$sys['name'],'code' => $game['code']);
+			/*print_r($game);
+			echo '<br>';*/
 		}
 		
 		if ($name != $prev_game) {
@@ -80,16 +74,81 @@ foreach($systems_list as $sys) {
 	}
 }
 
-sort ($game_list_sorted,SORT_NATURAL | SORT_FLAG_CASE);
+$col = array_column( $game_list_sorted, "name" );
+array_multisort( $col, SORT_NATURAL | SORT_FLAG_CASE, $game_list_sorted );
+
+
 $glength=count($game_list_sorted);
+$prev_letter = '';
 for ($i=0; $i<$glength; $i++) {
-	$game = explode("(", $game_list_sorted[$i]);
-	echo '<span>'.$game[0].'</span> ('.$game[1].'<br>';
+	$letter = strtolower(substr($game_list_sorted[$i]['name'],0,1));
+	$idscroll = '';
+	if ($letter != $prev_letter) {
+		$idscroll = ' id="anch_'.$letter.'"';
+		$prev_letter = $letter;
+	}
+	$game_list_sorted[$i]['code'] = str_replace("'", "%27", $game_list_sorted[$i]['code']);
+	$file = $_VIDEOS_DIR.'/'.$game_list_sorted[$i]['sys']."/".$game_list_sorted[$i][code];
+	echo "\r".'<span'.$idscroll.' onclick="lightbox_open(\''.$file.'.mp4\');">'.$game_list_sorted[$i]['name'].'</span> ('.$game_list_sorted[$i]['sys'].')<br>';
+
 }
 echo '<br><span class="red">'.$i.'</span><br>';
 
 ?>
+</div>
+<div id="light" onClick="lightbox_close();">
+	<video id="VisaChipCardVideo" loop >
+		<source src="" type="video/mp4">
+	</video>
+</div>
 
+<div id="fade" onClick="lightbox_close();"></div>
+<script type="text/javascript">
+
+var lightBoxVideo = document.getElementById("VisaChipCardVideo");
+
+
+function lightbox_open(url) {
+	url = url.replace("%27","'");
+	
+	$('#fade').css("display", "block");
+	var h = window.innerHeight;
+	var light = document.getElementById("light");
+	
+	$('#fade').css("opacity", ".7");
+	$('#light').css("opacity", "1");
+	$('#mainContent').css({'filter':'blur(10px)'});	
+
+	lightBoxVideo.src = url;
+	lightBoxVideo.volume = 0.3;
+	lightBoxVideo.autoplay = true;
+
+	$('#VisaChipCardVideo').css("max-height", h*.8);
+	
+	$('#light').css("display", "block").css("top", "50%");	
+}
+
+function lightbox_close() {
+
+	$('#VisaChipCardVideo').attr("src","");
+	$('#VisaChipCardVideo').css("width", "100%");
+	$('#light').css("opacity", "0").css("display", "none");
+	$('#fade').css("opacity", "0").css("display", "none");
+	$('#mainContent').css({'filter':'none'});
+	lightBoxVideo.pause();
+}
+
+$('body').bind('keypress', function(e) {
+	var letter = 'anch_'+String.fromCharCode(e.keyCode);
+	$.scrollTo(document.getElementById(letter),1200,{offset:0,easing:'easeInOutQuint'});
+});
+$.easing.easeInOutQuint = function (x, t, b, c, d) {
+	if ((t/=d/2) < 1) return c/2*t*t*t*t*t + b;
+	return c/2*((t-=2)*t*t*t*t + 2) + b;
+};
+
+
+</script>
 
 </body>
 </html>
